@@ -13,8 +13,15 @@ export class MemberList {
     this.#items.push(item);
   }
 
-  updateFee(_documentId: string, _fee: number): void {
-    // TODO: cambiar la cuota del socio con ese documento
+  updateFee(documentId: string, fee: number): void {
+    const miembro = this.#items.find(
+      (member) => member.documentId === documentId,
+    );
+    if (!miembro) {
+      throw new Error("No existe un socio con ese documento.");
+    } else {
+      miembro.monthlyFee = fee;
+    }
   }
 
   getItems(): readonly Member[] {
