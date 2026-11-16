@@ -34,4 +34,23 @@ describe("MemberList", () => {
     list.add(member);
     expect(list.totalFees()).toBe(1500);
   });
+
+  test("total discounted", () => {
+    member.monthlyFee = 1000;
+    member.discount = 10;
+    const member2 = new Member({
+      name: "Ana Pérez",
+      documentId: "12345679",
+      plan: "full",
+      monthlyFee: 500,
+    });
+    list.add(member2);
+    member2.discount = 0;
+    list.add(member);
+    expect(list.totalDiscounted()).toBe(1400);
+  });
+
+  test("total discounted is zero", () => {
+    expect(list.totalDiscounted()).toBe(0);
+  });
 });
